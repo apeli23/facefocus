@@ -14,3 +14,23 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.container{
+  overflow: hidden;
+}
+.row{
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  /* border: 3px solid rgb(0, 0, 0); */
+  text-align: center;
+  padding: 10px;
+  margin: 50px;
+}
+
+.column {
+  flex: 1 1 0px;
+  border: 10px;
+  /* border:3px solid  rgb(182, 0, 0); */
+  text-align: center;
+}

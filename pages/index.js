@@ -13,29 +13,27 @@ import { fill } from "@cloudinary/url-gen/actions/resize";
 
 export default function Home() {
   const cloudinary = new CloudinaryImage();
- 
+
   const cld = new Cloudinary({
     cloud: {
       cloudName: 'demo'
     }
   }, []);
+  const sample1 = cld.image("butterfly")
+  const sample1Transformed = cld.image("butterfly")
 
-  const myImage = cld.image("butterfly")
-   
-  myImage
-  .resize(thumbnail().width(150).height(150).gravity(focusOn(FocusOn.face()))) 
-  
+  sample1Transformed
+    .resize(thumbnail().width(150).height(150).gravity(focusOn(FocusOn.face())))
+
   return (
-    <div>
-      <img
-        id="image"
-        width={850}
-        height={600}
-        src={myImage}
-        alt="samples"
-      />
-      <div id="final">
-        <AdvancedImage cldImg = {myImage}   />
+    <div className="container">
+      <div className="row">
+        <div className="column">
+          <AdvancedImage cldImg={sample1} />
+        </div>
+        <div className="column">
+        <AdvancedImage cldImg={sample1Transformed} />
+        </div>
       </div>
     </div>
   )
