@@ -19,8 +19,8 @@ export default function Home() {
       cloudName: 'demo'
     }
   }, []);
-  const sample1 = cld.image("butterfly")
-  const sample1Transformed = cld.image("butterfly")
+  const sample1 = cld.image("family")
+  const sample1Transformed = cld.image("family")
 
   sample1Transformed
     .resize(thumbnail().width(150).height(150).gravity(focusOn(FocusOn.face())))
@@ -37,4 +37,5 @@ export default function Home() {
       </div>
     </div>
   )
-}
+};
+
