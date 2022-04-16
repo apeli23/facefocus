@@ -21,7 +21,12 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         console.log(fileStr)
         try {
-            uploadedResponse = cloudinary.image("couple.jpg", {gravity: "face", height: 150, width: 150, crop: "thumb"})
+            uploadedResponse = cloudinary.image("https://res.cloudinary.com/demo/image/upload/butterfly?_a=AJAEtWI0", {
+                gravity: "face", 
+                height: 150, 
+                width: 150, 
+                crop: "thumb"
+            })
 
         } catch (error) {
             console.log(error);

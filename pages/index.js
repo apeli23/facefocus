@@ -1,41 +1,46 @@
-import { AdvancedImage } from '@cloudinary/react';
-import { CloudinaryImage, Cloudinary } from '@cloudinary/url-gen';
-import Image from 'next/image';
-import Sample from '../public/sample.jpg';
-import { useRef, useEffect } from 'react';
-
-// Import required actions and qualifiers.
-import { thumbnail } from "@cloudinary/url-gen/actions/resize";
-import { byRadius } from "@cloudinary/url-gen/actions/roundCorners";
-import { focusOn } from "@cloudinary/url-gen/qualifiers/gravity";
-import { FocusOn } from "@cloudinary/url-gen/qualifiers/focusOn";
-import { fill } from "@cloudinary/url-gen/actions/resize";
+import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
 
 export default function Home() {
-  const cloudinary = new CloudinaryImage();
-
-  const cld = new Cloudinary({
-    cloud: {
-      cloudName: 'demo'
-    }
-  }, []);
-  const sample1 = cld.image("family")
-  const sample1Transformed = cld.image("family")
-
-  sample1Transformed
-    .resize(thumbnail().width(150).height(150).gravity(focusOn(FocusOn.face())))
+  const uploadVideo = async (base64) => {
+    console.log("uploading to backend...");
+    await readFile(blob).then((encoded_file) => {
+      try {
+        fetch('/api/upload', {
+          method: 'POST',
+          body: JSON.stringify({ data: encoded_file }),
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setLink(data.data);
+          });
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  };
 
   return (
     <div className="container">
+      <h1>Create a Nextjs face detector with Cloudinary</h1>
       <div className="row">
         <div className="column">
-          <AdvancedImage cldImg={sample1} />
+          <img width="550" height="400" src="https://res.cloudinary.com/dogjmmett/image/upload/v1649911466/officelady.jpg" />
         </div>
         <div className="column">
-        <AdvancedImage cldImg={sample1Transformed} />
+          <Image
+            cloudName="dogjmmett"
+            secure={true}
+            upload_preset="my_unsigned_preset"
+            publicId="officelady"
+          >
+            <Transformation width="200" height="200" gravity="face" crop="thumb" />
+          </Image>
         </div>
       </div>
-    </div>
+    </div >
   )
 };
 
+
+                          
