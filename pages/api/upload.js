@@ -15,24 +15,21 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-    let uploadedResponse;
+    let uploaded_url = '';
     const fileStr = req.body.data;
 
     if (req.method === 'POST') {
         console.log(fileStr)
         try {
-            uploadedResponse = cloudinary.image("https://res.cloudinary.com/demo/image/upload/butterfly?_a=AJAEtWI0", {
-                gravity: "face", 
-                height: 150, 
-                width: 150, 
-                crop: "thumb"
-            })
-
+            const uploadedResponse = await cloudinary.uploader.upload_large(fileStr, {
+                chunk_size: 6000000,
+            });
+            uploaded_url = uploadedResponse.secure_url;
+            console.log(uploaded_url)
         } catch (error) {
             console.log(error);
         }
-        console.log(uploadedResponse)
-        res.status(200).json({ data: uploadedResponse.toString() });
+        res.status(200).json({ data: uploaded_url });
         console.log('complete!');
     }
 }
